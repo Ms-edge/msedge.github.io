@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘月半爷の冒险【不是胖爷】</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>神秘月半爷の冒险【不是胖爷】</h1>
+            <div class="game-status">
+                <div class="status-item">
+                    <span>等级: </span>
+                    <span id="level">1</span>
+                </div>
+                <div class="status-item">
+                    <span>经验: </span>
+                    <span id="exp">0</span> / <span id="exp-to-next">100</span>
+                </div>
+                <div class="status-item">
+                    <span>金币: </span>
+                    <span id="gold">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <h2>角色属性</h2>
+            <div class="character-stats">
+                <div class="stat-item">
+                    <span>攻击: </span>
+                    <span id="attack">10</span>
+                </div>
+                <div class="stat-item">
+                    <span>防御: </span>
+                    <span id="defense">5</span>
+                </div>
+                <div class="stat-item">
+                    <span>生命: </span>
+                    <span id="hp">100</span> / <span id="max-hp">100</span>
+                </div>
+            </div>
+            <div class="character-actions">
+                <button id="heal-btn" disabled>治疗 (50金币)</button>
+                <button id="upgrade-attack-btn" disabled>提升攻击 (100金币)</button>
+                <button id="upgrade-defense-btn" disabled>提升防御 (100金币)</button>
+            </div>
+        </div>
+
+        <div class="battle-section">
+            <h2>战斗状态</h2>
+            <div class="battle-info">
+                <div id="current-monster" class="monster-info">
+                    <p>当前无BUG？</p>
+                </div>
+                <div id="battle-log" class="battle-log">
+                    <p>准备开始冒险...</p>
+                </div>
+            </div>
+            <div class="battle-actions">
+                <button id="gain-exp-btn">点击探索1次</button>
+                <button id="gain-exp-5-btn">连续探索5次</button>
+                <button id="gain-exp-10-btn">连续探索10次</button>
+                <button id="next-area-btn" disabled>进入下一区域</button>
+            </div>
+        </div>
+
+        <div class="inventory-section">
+            <h2>背包</h2>
+            
+            <!-- 一键售卖系统 -->
+            <div class="batch-sell-system">
+                <h3>一键售卖</h3>
+                <div class="sell-options">
+                    <div class="option-group">
+                        <label for="rarity-select">选择稀有度:</label>
+                        <select id="rarity-select">
+                            <option value="">全部稀有度</option>
+                            <option value="common">普通</option>
+                            <option value="uncommon">优秀</option>
+                            <option value="rare">稀有</option>
+                            <option value="epic">史诗</option>
+                            <option value="legendary">传说</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="type-select">选择类型:</label>
+                        <select id="type-select">
+                            <option value="">全部类型</option>
+                            <option value="weapon">武器</option>
+                            <option value="armor">护甲</option>
+                            <option value="accessory">饰品</option>
+                        </select>
+                    </div>
+                    <button id="batch-sell-btn">批量出售选中物品</button>
+                </div>
+            </div>
+            
+            <div id="inventory" class="inventory-items">
+                <p>背包为空[BUG]</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/character.js"></script>
+    <script src="js/monster.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

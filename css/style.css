@@ -1,0 +1,312 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background: linear-gradient(135deg, #4a90e2, #5c6bc0);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    margin-bottom: 15px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.game-status {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.2em;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.character-section,
+.battle-section,
+.inventory-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.character-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+.character-actions,
+.battle-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s, transform 0.1s;
+}
+
+#gain-exp-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#gain-exp-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+#gain-exp-btn:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+button:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.battle-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    margin-bottom: 20px;
+    min-height: 200px;
+}
+
+.monster-info {
+    background: #fff5f5;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #ff6b6b;
+}
+
+.battle-log {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 200px;
+    font-family: monospace;
+    line-height: 1.4;
+}
+
+.inventory-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item {
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbdefb;
+    min-width: 150px;
+    text-align: center;
+}
+
+.item.rarity-common { border-color: #9e9e9e; }
+.item.rarity-uncommon { border-color: #4caf50; }
+.item.rarity-rare { border-color: #2196f3; }
+.item.rarity-epic { border-color: #9c27b0; }
+.item.rarity-legendary { border-color: #ff9800; }
+
+/* 背包分类标题样式 */
+.inventory-category {
+    width: 100%;
+    margin: 15px 0 10px 0;
+    padding: 5px 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+.inventory-category h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* 武器类型侧向点样式 */
+.item.side-point-weapon {
+    position: relative;
+    padding-left: 25px;
+}
+
+.item.side-point-weapon::before {
+    content: '⚔️';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+}
+
+/* 护甲类型侧向点样式 */
+.item.side-point-armor {
+    position: relative;
+    padding-left: 25px;
+}
+
+.item.side-point-armor::before {
+    content: '🛡️';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+}
+
+/* 饰品类型侧向点样式 */
+.item.side-point-accessory {
+    position: relative;
+    padding-left: 25px;
+}
+
+.item.side-point-accessory::before {
+    content: '💍';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .game-status {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .battle-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .character-stats {
+        justify-content: center;
+    }
+    
+    .character-actions,
+    .battle-actions {
+        justify-content: center;
+    }
+}
+
+/* 动画效果 */
+@keyframes damage-flash {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(255, 0, 0, 0.2); }
+    100% { background-color: transparent; }
+}
+
+@keyframes level-up {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); color: #ffd700; }
+    100% { transform: scale(1); }
+}
+
+.level-up-animation {
+    animation: level-up 1s ease-in-out;
+}
+
+.damage-flash {
+    animation: damage-flash 0.5s ease-in-out;
+}
+
+/* 进度条 */
+.exp-bar {
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.exp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+/* 战斗特效 */
+.battle-effect {
+    animation: battle-pulse 0.3s ease-in-out;
+}
+
+@keyframes battle-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
