@@ -18,7 +18,7 @@
             <div class="header">
                 <div class="header-left">
                     <div class="star"></div>
-                    <span>祈愿</span>
+                    <span>{{ t('title') }}</span>
                 </div>
                 <div class="header-center">
 
@@ -61,7 +61,7 @@
                     </div>
                     <div class="footer-left-bottom">
                         <div class="history" @click="toggleHistory">
-                            历史记录
+                            {{ t('history') }}
                         </div>
                     </div>
                 </div>
@@ -69,16 +69,16 @@
                     <!-- 按钮容器 - 横向排列 -->
                     <div class="buttons-container">
                         <div class="chou" @click="handleDrew">
-                            单次祈禳
+                            {{ t('singleDraw') }}
                         </div>
                         <div class="chou ten-draw" @click="handleTenDrew">
-                            十连祈禳
+                            {{ t('tenDraw') }}
                         </div>
                     </div>
                     <!-- 跳过动画选项 -->
                     <div class="skip-animation-toggle">
                         <input type="checkbox" id="skip-animation" v-model="skipAnimation">
-                        <label for="skip-animation">略过动画</label>
+                        <label for="skip-animation">{{ t('skipAnimation') }}</label>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
             
             <!-- 结果标题 -->
             <div class="result-header">
-                <h2 class="result-title">{{isTenDraw ? '十连祈愿结果' : '祈愿结果'}}</h2>
+                <h2 class="result-title">{{isTenDraw ? t('tenResultTitle') : t('resultTitle')}}</h2>
             </div>
             
             <!-- 主要结果展示区 - 包含幸运儿和十连抽结果 -->
@@ -111,14 +111,14 @@
                         <h1 :class="nameClass" v-show="nameShow" class="result-name">{{thisName}}</h1>
                     </div>
                     <div class="result-info">
-                        <div class="result-type">幸者</div>
+                        <div class="result-type">{{ t('luckyOne') }}</div>
                         <div class="result-timestamp">{{currentTime}}</div>
                     </div>
                     
                     <!-- 十连抽进度指示器 -->
                     <div v-if="isTenDraw" class="ten-draw-progress">
                         <div class="progress-text">
-                            第 {{tenDrawIndex}}/10 位
+                            {{ t('currentDraw').replace('{index}', tenDrawIndex) }}
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" :style="{width: (tenDrawIndex * 10) + '%'}"></div>
@@ -128,7 +128,7 @@
                 
                 <!-- 右侧：十连抽结果列表 -->
                 <div class="ten-draw-results" v-if="isTenDraw && showTenDrawResult">
-                    <h3 class="ten-draw-title">本次十连祈愿结果</h3>
+                    <h3 class="ten-draw-title">{{ t('thisTenResult') }}</h3>
                     <div class="ten-draw-list">
                         <div v-for="(name, index) in tenDrawResults" :key="index" class="ten-draw-item">
                             <div class="item-index">{{index + 1}}</div>
@@ -143,31 +143,31 @@
                 <!-- 十连抽专用按钮 -->
                 <button v-if="isTenDraw && tenDrawIndex < 10" class="action-btn next-btn" @click="showNextTenDrawResult">
                     <div class="btn-icon next-icon"></div>
-                    <span>下一位</span>
+                    <span>{{ t('nextOne') }}</span>
                 </button>
                 
                 <!-- 查看全部十连抽结果按钮 -->
                 <button v-if="isTenDraw" class="action-btn view-all-btn" @click="showTenDrawResult = !showTenDrawResult">
                     <div class="btn-icon view-all-icon"></div>
-                    <span>{{showTenDrawResult ? '收讫结果' : '尽览全貌'}}</span>
+                    <span>{{showTenDrawResult ? t('hideAll') : t('viewAll')}}</span>
                 </button>
                 
                 <!-- 通用按钮 -->
                 <button class="action-btn share-btn" @click="shareResult">
                     <div class="btn-icon share-icon"></div>
-                    <span>分享结果</span>
+                    <span>{{ t('shareResult') }}</span>
                 </button>
                 <button class="action-btn history-btn" @click="toggleHistory">
                     <div class="btn-icon history-icon"></div>
-                    <span>史录</span>
+                    <span>{{ t('history') }}</span>
                 </button>
                 <button class="action-btn stats-btn" @click="toggleStats">
                     <div class="btn-icon stats-icon"></div>
-                    <span>祈愿统计</span>
+                    <span>{{ t('prayStats') }}</span>
                 </button>
                 <button class="action-btn draw-again-btn" @click="drawAgain">
                     <div class="btn-icon draw-icon"></div>
-                    <span>复行祈愿</span>
+                    <span>{{ t('prayAgain') }}</span>
                 </button>
             </div>
             
@@ -175,37 +175,37 @@
         <!-- 祈愿统计面板 -->
         <div class="stats-panel" :class="{active: showStats}">
             <div class="stats-header">
-                <h3>祈愿统计</h3>
+                <h3>{{ t('prayStats') }}</h3>
                 <div class="stats-close">
                     <div class="close-icon" @click="toggleStats"></div>
                 </div>
             </div>
             <div class="stats-content">
                 <div v-if="historyList.length === 0" class="no-stats">
-                    <p>暂无统计之数</p>
+                    <p>{{ t('noStats') }}</p>
                 </div>
                 <div v-else class="stats-main">
                     <!-- 总祈愿次数 -->
                     <div class="stats-item">
-                        <div class="stats-label">祈愿总次</div>
+                        <div class="stats-label">{{ t('totalPrays') }}</div>
                         <div class="stats-value">{{historyList.length}}</div>
                     </div>
                     
                     <!-- 抽中次数最多的人 -->
                     <div class="stats-item">
-                        <div class="stats-label">福运榜首</div>
+                        <div class="stats-label">{{ t('luckyKing') }}</div>
                         <div class="stats-value stats-lucky">{{topStudent.name}}</div>
                     </div>
                     
                     <!-- 抽中次数 -->
                     <div class="stats-item">
-                        <div class="stats-label">祈愿次数</div>
+                        <div class="stats-label">{{ t('prayCount') }}</div>
                         <div class="stats-value">{{topStudent.count}}次</div>
                     </div>
                     
                     <!-- 详细统计列表 -->
                     <div class="stats-list">
-                        <h4>详悉统计</h4>
+                        <h4>{{ t('detailedStats') }}</h4>
                         <div v-for="(item, index) in statsList" :key="index" class="stats-list-item">
                             <div class="stats-list-name">{{item.name}}</div>
                             <div class="stats-list-count">
@@ -223,10 +223,10 @@
         <!-- 历史记录面板 - 移到result-container之外，使其可以独立显示 -->
         <div class="history-panel" :class="{active: showHistory}">
             <div class="history-header">
-                <h3>往昔祈愿结果</h3>
+                <h3>{{ t('historyResults') }}</h3>
                 <div class="history-actions">
                     <button class="history-btn clear-btn" @click="clearHistory">
-                        <span>清空史录</span>
+                        <span>{{ t('clearHistory') }}</span>
                     </button>
                     <div class="history-close">
                         <div class="close-icon" @click="toggleHistory"></div>
@@ -235,7 +235,7 @@
             </div>
             <div class="history-list">
                 <div v-if="historyList.length === 0" class="no-history">
-                    <p>暂无往昔记录</p>
+                    <p>{{ t('noHistory') }}</p>
                 </div>
                 <div v-for="(item, index) in historyList" :key="index" class="history-item">
                     <div class="history-content">
@@ -250,7 +250,7 @@
         <!-- 设置面板 -->
         <div class="settings-panel" :class="{active: showSettings}">
             <div class="settings-header">
-                <h3>置设</h3>
+                <h3>{{ t('settings') }}</h3>
                 <div class="settings-close">
                     <div class="close-icon" @click="toggleSettings"></div>
                 </div>
@@ -290,7 +290,7 @@
                 
                 <!-- Cookie设置 -->
                 <div class="settings-section">
-                    <h4>Cookie置设</h4>
+                    <h4>Cookie设置</h4>
                     <div class="setting-item">
                         <button class="action-btn clear-btn" @click="clearCookies" style="margin: 0 auto;">
                             清除Cookie

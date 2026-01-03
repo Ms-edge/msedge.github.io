@@ -97,6 +97,8 @@ createApp({
         // 语言切换逻辑
         const changeLanguage = () => {
             console.log('语言已切换为:', currentLanguage.value)
+            // 更新缓存的翻译对象
+            currentMessages.value = window.i18n?.messages?.[currentLanguage.value] || {}
             // 将语言设置保存到cookie
             setCookie('currentLanguage', currentLanguage.value)
         }
@@ -180,13 +182,10 @@ createApp({
         
         let timer = null
         
+        // 简化setTimer函数，因为已经移除了动画效果
         function setTimer (){
-            if(timer !== null){
-                clearTimeout(timer)
-            }
-            timer = setTimeout(() => {
-                nameClass.value.push('active')
-            }, 100)
+            // 直接添加active类，不再使用定时器
+            nameClass.value.push('active')
         }
         
         function removeI(item){
@@ -196,6 +195,7 @@ createApp({
             }
         }
 
+        // 随机数生成函数
         function makeRandom(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
@@ -223,13 +223,12 @@ createApp({
             thisName.value = probabilityStudents[id]
         }
 
-
-        
         function asn() {
             isShow.value = false
             studentsBoxShow.value = true
             nameShow.value = true
-            setTimer()
+            // 移除动画，直接显示结果，提高性能
+            nameClass.value = ['result-name', 'active']
             drawName()
         }
 
@@ -256,17 +255,27 @@ createApp({
                 // 播放动画
                 isShow.value = true
                 // 尝试播放视频，处理自动播放限制
-                myVideo.value.play().catch(error => {
-                    console.log('视频自动播放失败:', error)
-                    // 当自动播放失败时，直接跳过动画，显示结果
-                    isShow.value = false
+                if (myVideo.value) {
+                    myVideo.value.play().catch(error => {
+                        console.log('视频自动播放失败:', error)
+                        // 当自动播放失败时，直接跳过动画，显示结果
+                        isShow.value = false
+                        asn()
+                        historyList.value.push({
+                            name: thisName.value,
+                            time: currentTime.value
+                        })
+                        saveHistoryToCookie() // 保存到Cookie
+                    })
+                } else {
+                    // 如果视频元素不存在，直接显示结果
                     asn()
                     historyList.value.push({
                         name: thisName.value,
                         time: currentTime.value
                     })
                     saveHistoryToCookie() // 保存到Cookie
-                })
+                }
             }
         }
 
