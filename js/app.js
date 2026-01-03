@@ -533,7 +533,7 @@ createApp({
             soundEnabled,
             toggleSettings,
             clearCookies,
-            t // 添加翻译函数
+            t 
         }
     }
 }).mount('#app')
